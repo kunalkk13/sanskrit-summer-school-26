@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Summer School on Sanskrit Computational Linguistics · MAHE Bengaluru × IIT Kharagpur</title>
+<meta name="description" content="A summer school exploring the intersection of Sanskrit, computation, and digital humanities — jointly organised by the Centre of Digital Humanities, MAHE Bengaluru and IIT Kharagpur." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&family=Tiro+Devanagari+Sanskrit:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #f4ecd8;
+    --parchment: #ebe0c4;
+    --paper: #faf4e2;
+    --ink: #2b1d10;
+    --ink-soft: #4a3624;
+    --maroon: #6e1f24;
+    --maroon-deep: #4a1418;
+    --saffron: #c8862c;
+    --saffron-bright: #e2a13a;
+    --rule: #b8a374;
+    --shadow: 0 1px 0 rgba(43, 29, 16, 0.06), 0 12px 28px -10px rgba(74, 20, 24, 0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-weight: 400;
+    line-height: 1.65;
+    min-height: 100vh;
+    /* subtle paper texture via stacked gradients */
+    background-image:
+      radial-gradient(at 12% 8%, rgba(200, 134, 44, 0.06) 0px, transparent 50%),
+      radial-gradient(at 88% 92%, rgba(110, 31, 36, 0.05) 0px, transparent 50%),
+      repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(43, 29, 16, 0.012) 2px, rgba(43, 29, 16, 0.012) 3px);
+  }
+
+  /* ===== TOP RIBBON ===== */
+  .ribbon {
+    background: var(--maroon-deep);
+    color: var(--parchment);
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.6rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--saffron);
+  }
+  .ribbon span { color: var(--saffron-bright); }
+
+  /* ===== HEADER ===== */
+  header {
+    background: var(--paper);
+    border-bottom: 1px double var(--rule);
+    padding: 1.6rem 2rem 1.4rem;
+    position: relative;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -6px;
+    height: 1px;
+    background: var(--rule);
+    opacity: 0.4;
+  }
+  .header-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 2rem;
+    align-items: center;
+  }
+  .logo-slot {
+    width: 78px;
+    height: 78px;
+    border: 1px dashed var(--rule);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.62rem;
+    color: var(--ink-soft);
+    background: rgba(255,255,255,0.4);
+    line-height: 1.25;
+    padding: 0.3rem;
+    letter-spacing: 0.04em;
+  }
+  .logo-slot.left { justify-self: start; }
+  .logo-slot.right { justify-self: end; }
+
+  .masthead { text-align: center; }
+  .masthead .devanagari {
+    font-family: 'Tiro Devanagari Sanskrit', serif;
+    font-size: 1.35rem;
+    color: var(--maroon);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.15rem;
+  }
+  .masthead h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    color: var(--ink);
+    letter-spacing: 0.005em;
+    line-height: 1.15;
+  }
+  .masthead .host {
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 0.5rem;
+  }
+  .masthead .host em {
+    font-style: normal;
+    color: var(--maroon);
+    font-weight: 600;
+  }
+
+  /* ===== TABS ===== */
+  nav.tabs {
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(6px);
+    background: rgba(250, 244, 226, 0.94);
+  }
+  .tabs-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0 1rem;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    padding: 1rem 1.3rem 0.95rem;
+    cursor: pointer;
+    position: relative;
+    letter-spacing: 0.01em;
+    transition: color 0.25s ease;
+    font-style: italic;
+  }
+  .tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--saffron);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+  .tab-btn:hover { color: var(--maroon); }
+  .tab-btn.active { color: var(--maroon); font-weight: 600; }
+  .tab-btn.active::after { width: 60%; }
+
+  /* ===== HERO ===== */
+  .hero {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 4rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+  }
+  .hero .ornament {
+    color: var(--saffron);
+    font-size: 1.4rem;
+    letter-spacing: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  .hero h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+  .hero h2 em {
+    font-style: italic;
+    color: var(--maroon);
+  }
+  .hero .shloka {
+    font-family: 'Tiro Devanagari Sanskrit', serif;
+    font-style: italic;
+    color: var(--maroon);
+    font-size: 1.15rem;
+    margin: 1.2rem auto;
+    max-width: 580px;
+    line-height: 1.8;
+  }
+  .hero .lede {
+    max-width: 640px;
+    margin: 1.4rem auto 0;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    line-height: 1.75;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 2.4rem;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    text-align: center;
+  }
+  .meta-item .label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink-soft);
+    margin-bottom: 0.3rem;
+  }
+  .meta-item .value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--maroon);
+    font-weight: 600;
+  }
+
+  .cta-row {
+    margin-top: 2.6rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 0.9rem 2rem;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--maroon);
+    background: var(--maroon);
+    color: var(--paper);
+    cursor: pointer;
+    transition: all 0.28s ease;
+  }
+  .btn:hover {
+    background: var(--maroon-deep);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+  }
+  .btn.ghost {
+    background: transparent;
+    color: var(--maroon);
+  }
+  .btn.ghost:hover {
+    background: var(--maroon);
+    color: var(--paper);
+  }
+
+  /* ===== TAB CONTENT ===== */
+  main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 2rem 5rem;
+  }
+  .panel {
+    display: none;
+    animation: fadeIn 0.5s ease;
+  }
+  .panel.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: var(--maroon);
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+  }
+  .section-title em { font-style: italic; }
+  .section-kicker {
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 0.5rem;
+  }
+  .section-rule {
+    width: 60px;
+    height: 1px;
+    background: var(--saffron);
+    margin: 1.2rem 0 2.4rem;
+  }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text p {
+    margin-bottom: 1.2rem;
+    font-size: 1.02rem;
+    color: var(--ink-soft);
+  }
+  .about-text p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.6rem;
+    float: left;
+    line-height: 1;
+    padding: 0.3rem 0.6rem 0 0;
+    color: var(--maroon);
+    font-weight: 500;
+  }
+  .about-side {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 2rem;
+    position: relative;
+  }
+  .about-side::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid var(--rule);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .about-side h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--maroon);
+    font-weight: 600;
+  }
+  .about-side ul { list-style: none; }
+  .about-side li {
+    padding: 0.5rem 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .about-side li:last-child { border-bottom: none; }
+  .about-side li strong {
+    display: block;
+    color: var(--ink);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  /* Schedule */
+  .schedule-day {
+    margin-bottom: 3rem;
+  }
+  .day-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 2px solid var(--maroon);
+    margin-bottom: 1.4rem;
+  }
+  .day-header .day-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    color: var(--maroon);
+    font-style: italic;
+    line-height: 1;
+  }
+  .day-header .day-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .day-header .day-date {
+    margin-left: auto;
+    font-size: 0.82rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .session {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.6rem;
+    padding: 1rem 0;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .session:last-child { border-bottom: none; }
+  .session-time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--maroon);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .session-title {
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .session-speaker {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  /* Speakers */
+  .speaker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .speaker-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 1.6rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .speaker-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+  .speaker-portrait {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    background: var(--cream);
+    margin: 0 auto 1rem;
+    border: 1px dashed var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+  }
+  .speaker-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    color: var(--maroon);
+    font-weight: 600;
+  }
+  .speaker-affil {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    margin-top: 0.25rem;
+    font-style: italic;
+  }
+
+  /* Registration */
+  .reg-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  .fee-table {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 2rem;
+  }
+  .fee-table h3 {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--maroon);
+    margin-bottom: 1.2rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+  .fee-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .fee-row:last-child { border-bottom: none; }
+  .fee-label { color: var(--ink-soft); }
+  .fee-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    color: var(--maroon);
+    font-size: 1.1rem;
+  }
+  .reg-info p { margin-bottom: 1rem; color: var(--ink-soft); }
+  .reg-info ul {
+    margin-left: 1.2rem;
+    color: var(--ink-soft);
+  }
+  .reg-info li { margin-bottom: 0.5rem; }
+  .deadline-banner {
+    margin-top: 1.6rem;
+    padding: 1rem 1.4rem;
+    background: var(--maroon);
+    color: var(--paper);
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+  }
+  .deadline-banner strong { color: var(--saffron-bright); }
+
+  /* Resources */
+  .resource-list {
+    list-style: none;
+  }
+  .resource-list li {
+    padding: 1.2rem 0;
+    border-bottom: 1px dotted var(--rule);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .resource-list li:last-child { border-bottom: none; }
+  .res-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--saffron);
+    font-style: italic;
+  }
+  .res-title {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .res-desc {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    margin-top: 0.2rem;
+  }
+  .res-link {
+    color: var(--maroon);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--maroon);
+    padding-bottom: 2px;
+  }
+  .res-link:hover { color: var(--saffron); border-color: var(--saffron); }
+
+  /* Contact */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+  .contact-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 1.8rem;
+  }
+  .contact-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--maroon);
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  .contact-card p {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    margin-bottom: 0.4rem;
+  }
+  .contact-card a {
+    color: var(--maroon);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--maroon);
+  }
+
+  /* Footer */
+  footer {
+    background: var(--maroon-deep);
+    color: var(--parchment);
+    padding: 3rem 2rem 2rem;
+    margin-top: 4rem;
+    border-top: 4px double var(--saffron);
+  }
+  .footer-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .footer-shloka {
+    font-family: 'Tiro Devanagari Sanskrit', serif;
+    color: var(--saffron-bright);
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+  }
+  .footer-meta {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    color: rgba(244, 236, 216, 0.6);
+    text-transform: uppercase;
+    margin-top: 1.5rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 820px) {
+    .header-inner {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+    .logo-slot.left, .logo-slot.right { justify-self: center; }
+    .about-grid, .reg-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .session { grid-template-columns: 1fr; gap: 0.3rem; }
+    .day-header { flex-wrap: wrap; }
+    .day-header .day-date { margin-left: 0; width: 100%; }
+    .resource-list li { grid-template-columns: auto 1fr; }
+    .res-link { grid-column: 1 / -1; justify-self: start; margin-top: 0.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top ribbon -->
+<div class="ribbon">
+  Summer School · <span>17 June – 28 June 2026</span> · MAHE Bengaluru
+</div>
+
+<!-- Header with logo placeholders + title -->
+<header>
+  <div class="header-inner">
+    <div class="logo-slot left">CDH<br>MAHE<br>BENGALURU</div>
+
+    <div class="masthead">
+      <div class="devanagari">संस्कृत-संगणकीय-भाषाविज्ञानम्</div>
+      <h1>Summer School on Sanskrit Computational Linguistics</h1>
+      <div class="host">
+        Hosted by <em>Centre of Digital Humanities, MAHE Bengaluru</em>
+        &nbsp;·&nbsp; in association with <em>IIT Kharagpur</em>
+      </div>
+    </div>
+
+    <div class="logo-slot right">IIT<br>KHARAGPUR</div>
+  </div>
+</header>
+
+<!-- Tab navigation -->
+<nav class="tabs">
+  <div class="tabs-inner">
+    <button class="tab-btn active" data-tab="home">Home</button>
+    <button class="tab-btn" data-tab="about">About</button>
+    <button class="tab-btn" data-tab="schedule">Schedule</button>
+    <button class="tab-btn" data-tab="speakers">Speakers</button>
+    <button class="tab-btn" data-tab="registration">Registration</button>
+    <button class="tab-btn" data-tab="resources">Resources</button>
+    <button class="tab-btn" data-tab="contact">Contact</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HOME / HERO -->
+  <section class="panel active" id="home">
+    <div class="hero">
+      <div class="ornament">❋ &nbsp; ❋ &nbsp; ❋</div>
+      <h2>Where the <em>śāstra</em> meets the algorithm.</h2>
+      <div class="shloka">
+        वाक्यपदीयं संगणकेन सह — <br>
+        a two-week immersion in Pāṇinian grammar, corpus methods, and computational philology.
+      </div>
+      <p class="lede">
+        A residential summer school for students, researchers, and faculty interested in
+        bringing the formal rigour of the Sanskrit śāstric tradition into conversation with
+        modern computational methods — from morphological analysers to large language models.
+      </p>
+
+      <div class="hero-meta">
+        <div class="meta-item">
+          <div class="label">Dates</div>
+          <div class="value">17 – 28 June 2026</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Venue</div>
+          <div class="value">MAHE, Bengaluru</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Mode</div>
+          <div class="value">Residential</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Seats</div>
+          <div class="value">40 participants</div>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a href="#" class="btn" data-goto="registration">Register Now</a>
+        <a href="#" class="btn ghost" data-goto="schedule">View Schedule</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="panel" id="about">
+    <div class="section-kicker">About the School</div>
+    <h2 class="section-title">Tradition, formalised — <em>computation, contextualised.</em></h2>
+    <div class="section-rule"></div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Sanskrit has, for over two millennia, been the site of one of humanity's most
+          rigorous traditions of formal linguistic description. From Pāṇini's Aṣṭādhyāyī
+          to the Navya-Nyāya philosophers, the language has been examined with a precision
+          that anticipates much of what modern computational linguistics seeks to formalise.
+        </p>
+        <p>
+          This summer school is designed to bring together two communities that rarely
+          share a room — Sanskrit scholars trained in the traditional <em>śāstra</em>, and
+          researchers in NLP, computational linguistics, and digital humanities. Over two
+          weeks, participants will engage with morphological analysers, dependency parsers,
+          OCR for manuscripts, and the application of modern language models to classical
+          Sanskrit texts.
+        </p>
+        <p>
+          The school is hosted by the Centre of Digital Humanities at Manipal Academy of
+          Higher Education, Bengaluru, in academic association with IIT Kharagpur's
+          ongoing initiatives in Indic NLP and digital philology.
+        </p>
+      </div>
+
+      <aside class="about-side">
+        <h3>At a glance</h3>
+        <ul>
+          <li><strong>Format</strong>Lectures, hands-on labs, and reading sessions</li>
+          <li><strong>Level</strong>Intermediate; prior exposure to Sanskrit or NLP</li>
+          <li><strong>Language</strong>English (with Sanskrit primary sources)</li>
+          <li><strong>Certification</strong>Joint certificate from MAHE & IIT KGP</li>
+          <li><strong>Lodging</strong>On-campus accommodation included</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section class="panel" id="schedule">
+    <div class="section-kicker">Programme</div>
+    <h2 class="section-title">Schedule <em>at a glance</em></h2>
+    <div class="section-rule"></div>
+
+    <div class="schedule-day">
+      <div class="day-header">
+        <span class="day-num">I.</span>
+        <span class="day-title">Foundations — Pāṇinian Grammar & Formal Systems</span>
+        <span class="day-date">Mon, 17 June</span>
+      </div>
+      <div class="session">
+        <div class="session-time">09:30 – 11:00</div>
+        <div>
+          <div class="session-title">Inaugural address and overview of the field</div>
+          <div class="session-speaker">Speaker TBA</div>
+        </div>
+      </div>
+      <div class="session">
+        <div class="session-time">11:30 – 13:00</div>
+        <div>
+          <div class="session-title">The Aṣṭādhyāyī as a formal rule system</div>
+          <div class="session-speaker">Speaker TBA</div>
+        </div>
+      </div>
+      <div class="session">
+        <div class="session-time">14:30 – 16:30</div>
+        <div>
+          <div class="session-title">Lab: setting up the toolchain (SanskritUtilities, INRIA tools)</div>
+          <div class="session-speaker">Hands-on session</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="schedule-day">
+      <div class="day-header">
+        <span class="day-num">II.</span>
+        <span class="day-title">Morphology & Sandhi — algorithms and edge cases</span>
+        <span class="day-date">Tue, 18 June</span>
+      </div>
+      <div class="session">
+        <div class="session-time">09:30 – 11:00</div>
+        <div>
+          <div class="session-title">Finite-state approaches to Sanskrit morphology</div>
+          <div class="session-speaker">Speaker TBA</div>
+        </div>
+      </div>
+      <div class="session">
+        <div class="session-time">11:30 – 13:00</div>
+        <div>
+          <div class="session-title">Sandhi: rule-based vs neural models</div>
+          <div class="session-speaker">Speaker TBA</div>
+        </div>
+      </div>
+      <div class="session">
+        <div class="session-time">14:30 – 16:30</div>
+        <div>
+          <div class="session-title">Lab: building a small sandhi splitter</div>
+          <div class="session-speaker">Hands-on session</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="schedule-day">
+      <div class="day-header">
+        <span class="day-num">III.</span>
+        <span class="day-title">Syntax, Dependency Parsing & Kāraka theory</span>
+        <span class="day-date">Wed, 19 June</span>
+      </div>
+      <div class="session">
+        <div class="session-time">09:30 – 11:00</div>
+        <div>
+          <div class="session-title">Kāraka theory and modern dependency frameworks</div>
+          <div class="session-speaker">Speaker TBA</div>
+        </div>
+      </div>
+      <div class="session">
+        <div class="session-time">11:30 – 13:00</div>
+        <div>
+          <div class="session-title">Sanskrit treebanks: an overview</div>
+          <div class="session-speaker">Speaker TBA</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top: 2rem; font-style: italic; color: var(--ink-soft); text-align: center;">
+      ⸻ &nbsp; Full schedule with remaining sessions will be released shortly. &nbsp; ⸻
+    </p>
+  </section>
+
+  <!-- SPEAKERS -->
+  <section class="panel" id="speakers">
+    <div class="section-kicker">Faculty & Resource Persons</div>
+    <h2 class="section-title">Our <em>speakers</em></h2>
+    <div class="section-rule"></div>
+
+    <div class="speaker-grid">
+      <div class="speaker-card">
+        <div class="speaker-portrait">PHOTO</div>
+        <div class="speaker-name">Speaker Name</div>
+        <div class="speaker-affil">Affiliation, Department</div>
+      </div>
+      <div class="speaker-card">
+        <div class="speaker-portrait">PHOTO</div>
+        <div class="speaker-name">Speaker Name</div>
+        <div class="speaker-affil">Affiliation, Department</div>
+      </div>
+      <div class="speaker-card">
+        <div class="speaker-portrait">PHOTO</div>
+        <div class="speaker-name">Speaker Name</div>
+        <div class="speaker-affil">Affiliation, Department</div>
+      </div>
+      <div class="speaker-card">
+        <div class="speaker-portrait">PHOTO</div>
+        <div class="speaker-name">Speaker Name</div>
+        <div class="speaker-affil">Affiliation, Department</div>
+      </div>
+      <div class="speaker-card">
+        <div class="speaker-portrait">PHOTO</div>
+        <div class="speaker-name">Speaker Name</div>
+        <div class="speaker-affil">Affiliation, Department</div>
+      </div>
+      <div class="speaker-card">
+        <div class="speaker-portrait">PHOTO</div>
+        <div class="speaker-name">Speaker Name</div>
+        <div class="speaker-affil">Affiliation, Department</div>
+      </div>
+    </div>
+
+    <p style="margin-top: 2rem; font-style: italic; color: var(--ink-soft); text-align: center;">
+      Speaker list to be finalised. Replace placeholder cards with confirmed faculty.
+    </p>
+  </section>
+
+  <!-- REGISTRATION -->
+  <section class="panel" id="registration">
+    <div class="section-kicker">How to Apply</div>
+    <h2 class="section-title">Registration &amp; <em>fees</em></h2>
+    <div class="section-rule"></div>
+
+    <div class="reg-layout">
+      <div class="reg-info">
+        <p>
+          The summer school is open to advanced undergraduates, postgraduates, doctoral
+          candidates, and faculty members. Applicants are expected to have some background
+          in either Sanskrit or computational linguistics.
+        </p>
+        <p><strong>Application requires:</strong></p>
+        <ul>
+          <li>A brief statement of purpose (max. 500 words)</li>
+          <li>CV / academic record</li>
+          <li>One letter of recommendation (for students)</li>
+          <li>Sample of relevant work, if any</li>
+        </ul>
+        <div class="deadline-banner">
+          Applications close <strong>30 April 2026</strong> · decisions by 15 May 2026
+        </div>
+      </div>
+
+      <div class="fee-table">
+        <h3>Fee structure</h3>
+        <div class="fee-row">
+          <span class="fee-label">Students (Indian)</span>
+          <span class="fee-amount">₹ 5,000</span>
+        </div>
+        <div class="fee-row">
+          <span class="fee-label">Research scholars</span>
+          <span class="fee-amount">₹ 8,000</span>
+        </div>
+        <div class="fee-row">
+          <span class="fee-label">Faculty / Industry</span>
+          <span class="fee-amount">₹ 12,000</span>
+        </div>
+        <div class="fee-row">
+          <span class="fee-label">International participants</span>
+          <span class="fee-amount">USD 200</span>
+        </div>
+        <div class="fee-row">
+          <span class="fee-label">Lodging & meals</span>
+          <span class="fee-amount">Included</span>
+        </div>
+
+        <div class="cta-row" style="margin-top: 1.6rem; justify-content: flex-start;">
+          <a href="#" class="btn">Apply via Google Form</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section class="panel" id="resources">
+    <div class="section-kicker">Preparatory Material</div>
+    <h2 class="section-title">Readings &amp; <em>tools</em></h2>
+    <div class="section-rule"></div>
+
+    <ul class="resource-list">
+      <li>
+        <div class="res-num">I.</div>
+        <div>
+          <div class="res-title">Sanskrit Heritage Platform (INRIA)</div>
+          <div class="res-desc">Online morphological analyser, sandhi splitter, and reader.</div>
+        </div>
+        <a class="res-link" href="#">visit ↗</a>
+      </li>
+      <li>
+        <div class="res-num">II.</div>
+        <div>
+          <div class="res-title">Sanskrit Library — DCS corpus</div>
+          <div class="res-desc">Digital Corpus of Sanskrit, lemmatised and morphologically tagged.</div>
+        </div>
+        <a class="res-link" href="#">visit ↗</a>
+      </li>
+      <li>
+        <div class="res-num">III.</div>
+        <div>
+          <div class="res-title">Suggested reading list (PDF)</div>
+          <div class="res-desc">Curated papers on Pāṇinian grammar, kāraka theory, and Sanskrit NLP.</div>
+        </div>
+        <a class="res-link" href="#">download ↓</a>
+      </li>
+      <li>
+        <div class="res-num">IV.</div>
+        <div>
+          <div class="res-title">Toolkit setup guide</div>
+          <div class="res-desc">Instructions for installing the software stack we'll use during labs.</div>
+        </div>
+        <a class="res-link" href="#">view ↗</a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="panel" id="contact">
+    <div class="section-kicker">Get in Touch</div>
+    <h2 class="section-title">Contact <em>the organisers</em></h2>
+    <div class="section-rule"></div>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h4>Academic Coordinator</h4>
+        <p>Name to be filled in</p>
+        <p>Centre of Digital Humanities</p>
+        <p>MAHE, Bengaluru</p>
+        <p><a href="mailto:cdh@manipal.edu">cdh@manipal.edu</a></p>
+      </div>
+      <div class="contact-card">
+        <h4>IIT Kharagpur Liaison</h4>
+        <p>Name to be filled in</p>
+        <p>Department of Humanities &amp; Social Sciences</p>
+        <p>IIT Kharagpur</p>
+        <p><a href="mailto:liaison@iitkgp.ac.in">liaison@iitkgp.ac.in</a></p>
+      </div>
+      <div class="contact-card">
+        <h4>General enquiries</h4>
+        <p>For application status, accommodation, and logistics:</p>
+        <p><a href="mailto:sanskrit.summer@manipal.edu">sanskrit.summer@manipal.edu</a></p>
+        <p>Tel: +91-XXX-XXX-XXXX</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-shloka">सर्वे भवन्तु सुखिनः</div>
+    <p>Summer School on Sanskrit Computational Linguistics · 2026</p>
+    <div class="footer-meta">
+      Centre of Digital Humanities · MAHE Bengaluru &nbsp; × &nbsp; IIT Kharagpur
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Tab switching
+  const tabs = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.panel');
+
+  function activate(tabName) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
+    panels.forEach(p => p.classList.toggle('active', p.id === tabName));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => activate(btn.dataset.tab));
+  });
+
+  // Hero CTAs that jump to other tabs
+  document.querySelectorAll('[data-goto]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      activate(a.dataset.goto);
+    });
+  });
+</script>
+
+</body>
+</html>
